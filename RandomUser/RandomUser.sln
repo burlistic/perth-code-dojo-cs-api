@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{924824F4-3161-4ED4-8E0D-464FF55C7FE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Integration.Tests", "Service.Integration.Tests\Service.Integration.Tests.csproj", "{86A5CB97-68B8-44A6-B4A3-72701C44516D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{924824F4-3161-4ED4-8E0D-464FF55C7FE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{924824F4-3161-4ED4-8E0D-464FF55C7FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{924824F4-3161-4ED4-8E0D-464FF55C7FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{924824F4-3161-4ED4-8E0D-464FF55C7FE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A5CB97-68B8-44A6-B4A3-72701C44516D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A5CB97-68B8-44A6-B4A3-72701C44516D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A5CB97-68B8-44A6-B4A3-72701C44516D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A5CB97-68B8-44A6-B4A3-72701C44516D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
