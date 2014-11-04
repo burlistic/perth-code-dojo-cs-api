@@ -81,6 +81,30 @@ namespace Service.Integration.Tests
 
         // how long would it take without async?
 
+        [Fact]
+        public void GetRandomUsers_Populate_Bulk_Data_Multiple_Calls_Non_Async()
+        {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            var randomUserService = new RandomUserService();
+
+            var users = randomUserService.GetRandomUsers(50);
+
+            stopWatch.Stop();
+
+            Assert.Equal(50, users.Count);
+            foreach (var user in users)
+            {
+                Assert.NotNull(user.registered);
+                Assert.False(string.IsNullOrEmpty(user.name.first));
+            }
+
+            Console.Write(stopWatch.ElapsedMilliseconds);
+
+            Assert.True(stopWatch.ElapsedMilliseconds < 80000);
+        }
+
         // how long with a seed?
 
         // create output - a list of users along with images
