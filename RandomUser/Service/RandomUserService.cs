@@ -25,22 +25,7 @@ namespace Service
 
         public List<User> GetRandomUsersAsync(bool bulkLoad, int count)
         {
-            if (bulkLoad)
-            {
-                GetUserAsync(true, count).Wait();
-            }
-            else
-            {
-                for (int i = 0; i < count; i++)
-                {
-                    GetUserAsync(false, count).Wait();
-                }
-            }
-            return _users;
-        }
 
-        private async Task GetUserAsync(bool bulkLoad, int count = 0)
-        {
             using (var client = new HttpClient())
             {
 
@@ -50,48 +35,62 @@ namespace Service
 
                 if (bulkLoad)
                 {
-                    HttpResponseMessage response = await client.GetAsync("?results=" + count + "&key=8JE0-J3P4-MCWI-42H9");
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var result = await response.Content.ReadAsAsync<RandomUserResponse>();
-
-                        foreach (var user in result.results)
-                        {
-                            _users.Add(user.user);
-                        }
-
-                        return;
-                    }
-                    throw new NullReferenceException("no user returned from service");
-
-
-                    // todo - handle other responces
+                    GetUserAsync(client, true, count).Wait();
                 }
                 else
                 {
-
-                    HttpResponseMessage response = await client.GetAsync("");
-
-                    if (response.IsSuccessStatusCode)
+                    for (int i = 0; i < count; i++)
                     {
-                        var result = await response.Content.ReadAsAsync<RandomUserResponse>();
-                        var firstResult = result.results.FirstOrDefault();
-                        if (firstResult != null)
-                        {
-                            Console.WriteLine("Random user, registered number: {0}", firstResult.user.registered);
-                            _users.Add(firstResult.user);
-                            return;
-                        }
+                        GetUserAsync(client, false, count).Wait();
+                    }
+                }
+            }
+            return _users;
+        }
 
-                        throw new NullReferenceException("no user returned from service");
+        private async Task GetUserAsync(HttpClient client, bool bulkLoad, int count = 0)
+        {
+
+            if (bulkLoad)
+            {
+                HttpResponseMessage response = await client.GetAsync("?results=" + count + "&key=8JE0-J3P4-MCWI-42H9");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsAsync<RandomUserResponse>();
+
+                    foreach (var user in result.results)
+                    {
+                        _users.Add(user.user);
                     }
 
-                    // todo - handle other responces
+                    return;
+                }
+                throw new NullReferenceException("no user returned from service");
+
+
+                // todo - handle other responces
+            }
+            else
+            {
+
+                HttpResponseMessage response = await client.GetAsync("");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsAsync<RandomUserResponse>();
+                    var firstResult = result.results.FirstOrDefault();
+                    if (firstResult != null)
+                    {
+                        Console.WriteLine("Random user, registered number: {0}", firstResult.user.registered);
+                        _users.Add(firstResult.user);
+                        return;
+                    }
+
+                    throw new NullReferenceException("no user returned from service");
                 }
 
-
-
+                // todo - handle other responces
             }
 
         }
